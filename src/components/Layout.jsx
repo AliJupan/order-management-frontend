@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Appbar from "./AppBar";
+import Appbar from "./Appbar.jsx";
 import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar.jsx";
