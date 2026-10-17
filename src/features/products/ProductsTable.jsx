@@ -76,9 +76,6 @@ export default function ProductsTable({ products, onEdit, onDelete }) {
                 <IconButton size="small" onClick={() => onEdit?.(product)}>
                   <EditIcon fontSize="small" />
                 </IconButton>
-                <IconButton size="small" onClick={() => onDelete?.(product)}>
-                  <DeleteIcon fontSize="small" />
-                </IconButton>
               </TableCell>
             </TableRow>
           ))}

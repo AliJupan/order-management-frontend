@@ -10,11 +10,14 @@ import {
   CircularProgress,
   Typography,
 } from "@mui/material";
+
 import { useNavigate } from "react-router-dom";
-import { OrderStatus, PaidStatus } from "./orderEnum";
+
+import { OrderStatus, PaidStatus, OrderType } from "./orderEnum";
 
 export default function OrdersTable({ orders, loading }) {
   const navigate = useNavigate();
+
 
   if (loading) {
     return <CircularProgress sx={{ m: 3 }} />;
@@ -38,8 +41,9 @@ export default function OrdersTable({ orders, loading }) {
             <TableCell>Due Date</TableCell>
             <TableCell>Total Paid</TableCell>
             <TableCell>Total</TableCell>
-            <TableCell>Status</TableCell>
-            <TableCell>Paid</TableCell>
+            <TableCell>Order Status</TableCell>
+            <TableCell>Paid Status</TableCell>
+            <TableCell>Order Type</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -75,6 +79,13 @@ export default function OrdersTable({ orders, loading }) {
                     PaidStatus[order.paidStatus]?.label ?? order.paidStatus
                   }
                   color={PaidStatus[order.paidStatus]?.color}
+                />
+              </TableCell>
+              <TableCell>
+                <Chip
+                  size="small"
+                  label={OrderType[order.orderType]?.label ?? order.orderType}
+                  color={OrderType[order.orderType]?.color}
                 />
               </TableCell>
             </TableRow>

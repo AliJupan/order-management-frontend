@@ -17,9 +17,9 @@ import { drawerWidth } from "./layoutConfig";
 
 const navItems = [
   { text: "Dashboard", icon: <DashboardIcon />, path: "/" },
-  { text: "Products", icon: <InventoryIcon />, path: "/products" },
-  { text: "Orders", icon: <ReceiptLongIcon />, path: "/orders" },
   { text: "Add Order", icon: <AddShoppingCartIcon />, path: "/orders/add" },
+  { text: "Orders", icon: <ReceiptLongIcon />, path: "/orders" },
+  { text: "Products", icon: <InventoryIcon />, path: "/products" },
 ];
 
 export default function Sidebar({ mobileOpen, onClose }) {

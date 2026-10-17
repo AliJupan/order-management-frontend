@@ -18,6 +18,8 @@ import {
   MenuItem,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import GridOnIcon from "@mui/icons-material/GridOn";
+
 import useOrder from "../hooks/useOrder.js";
 import {
   OrderStatus,
@@ -31,10 +33,18 @@ import StatusChip from "../components/StatusChip.jsx";
 export default function OrderDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { order, loading, error, recordPayment, updateStatus, statusLoading } =
-    useOrder(id);
+  const {
+    order,
+    loading,
+    error,
+    recordPayment,
+    updateStatus,
+    statusLoading,
+    exportOrder,
+    exportLoading,
+    exportError,
+  } = useOrder(id);
   const [paymentDialogOpen, setPaymentDialogOpen] = useState(false);
-  const [statusUpdating, setStatusUpdating] = useState(false);
 
   if (loading) return <CircularProgress sx={{ m: 3 }} />;
   if (error)
@@ -48,10 +58,6 @@ export default function OrderDetailPage() {
   const { customerDetail, orderItems } = order;
   const balanceDue = order.totalPrice - order.totalPaid;
 
-  const handleStatusChange = async (newStatus) => {
-    await updateStatus(newStatus);
-  };
-
   return (
     <Box sx={{ p: 3 }}>
       <Button
@@ -61,6 +67,23 @@ export default function OrderDetailPage() {
       >
         Back to Orders
       </Button>
+
+      <Button
+        variant="outlined"
+        startIcon={
+          exportLoading ? <CircularProgress size={16} /> : <GridOnIcon />
+        }
+        disabled={exportLoading}
+        onClick={() => exportOrder().catch(() => {})}
+      >
+        Export to Excel
+      </Button>
+
+      {exportError && (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          Failed to export order.
+        </Alert>
+      )}
 
       <Typography variant="h4" gutterBottom>
         {order.orderNumber}
@@ -76,18 +99,17 @@ export default function OrderDetailPage() {
             <Divider sx={{ mb: 2 }} />
             <Box sx={{ display: "flex", gap: 1, mb: 1, alignItems: "center" }}>
               <Chip
-                label={OrderType[order.orderType]?.label}
+                label={order.orderType}
                 color={OrderType[order.orderType]?.color}
                 size="small"
               />
-              <StatusChip
-                status={order.orderStatus}
-                options={OrderStatus}
-                disabled={statusLoading}
-                onChange={handleStatusChange}
+              <Chip
+                label={order.orderStatus}
+                color={OrderStatus[order.orderStatus]?.color}
+                size="small"
               />
               <Chip
-                label={PaidStatus[order.paidStatus]?.label}
+                label={PaidStatus[order.paidStatus]?.label ?? order.paidStatus}
                 color={PaidStatus[order.paidStatus]?.color}
                 size="small"
               />
@@ -124,6 +146,12 @@ export default function OrderDetailPage() {
                 Record Payment
               </Button>
             )}
+
+            <StatusChip
+              status={order.orderStatus}
+              onChange={updateStatus}
+              disabled={statusLoading}
+            />
 
             <RecordPaymentDialog
               open={paymentDialogOpen}

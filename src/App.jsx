@@ -1,12 +1,30 @@
+import { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { CircularProgress, Box } from "@mui/material";
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoutes.jsx";
-import DashboardPage from "./pages/DashboardPage";
-import ProductsPage from "./pages/ProductsPage";
-import OrdersPage from "./pages/OrdersPage";
-import OrderDetailPage from "./pages/OrderDetailPage.jsx";
-import OrderFormPage from "./pages/OrderFormPage.jsx";
-import LoginPage from "./pages/LoginPage.jsx";
+
+const DashboardPage = lazy(() => import("./pages/DashboardPage"));
+const ProductsPage = lazy(() => import("./pages/ProductsPage"));
+const OrdersPage = lazy(() => import("./pages/OrdersPage"));
+const OrderDetailPage = lazy(() => import("./pages/OrderDetailPage.jsx"));
+const OrderFormPage = lazy(() => import("./pages/OrderFormPage.jsx"));
+const LoginPage = lazy(() => import("./pages/LoginPage.jsx"));
+
+function RouteFallback() {
+  return (
+    <Box
+      sx={{
+        minHeight: "60vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <CircularProgress />
+    </Box>
+  );
+}
 
 const router = createBrowserRouter([
   {
@@ -31,5 +49,9 @@ const router = createBrowserRouter([
 ]);
 
 export default function AppRoutes() {
-  return <RouterProvider router={router} />;
+  return (
+    <Suspense fallback={<RouteFallback />}>
+      <RouterProvider router={router} />
+    </Suspense>
+  );
 }

@@ -13,11 +13,23 @@ const MUI_COLOR_HEX = {
 };
 
 export default function OrdersByStatusChart({ data }) {
-  const labels = data.map((d) => OrderStatus[d.status]?.label ?? d.status);
+  const labels = data.map((d) => {
+    const status = Object.values(OrderStatus).find(
+      (s) => s.value === d.status
+    );
+
+    return status?.label ?? d.status;
+  });
+
   const counts = data.map((d) => d.count);
-  const colors = data.map(
-    (d) => MUI_COLOR_HEX[OrderStatus[d.status]?.color] ?? MUI_COLOR_HEX.default,
-  );
+
+  const colors = data.map((d) => {
+    const status = Object.values(OrderStatus).find(
+      (s) => s.value === d.status
+    );
+
+    return MUI_COLOR_HEX[status?.color] ?? MUI_COLOR_HEX.default;
+  });
 
   return (
     <Paper
@@ -32,11 +44,20 @@ export default function OrdersByStatusChart({ data }) {
       <Typography variant="subtitle2" color="text.secondary" gutterBottom>
         Orders by Status
       </Typography>
+
       <BarChart
         height={280}
-        xAxis={[{ data: labels, scaleType: "band" }]}
+        xAxis={[
+          {
+            data: labels,
+            scaleType: "band",
+            colorMap: {
+              type: "ordinal",
+              colors: colors,
+            },
+          },
+        ]}
         series={[{ data: counts, label: "Orders" }]}
-        colors={colors}
       />
     </Paper>
   );

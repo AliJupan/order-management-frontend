@@ -169,6 +169,8 @@ export default function useOrderForm() {
     if (items.length === 0) return "Scan or add at least one product.";
     if (discountPercentage < 0 || discountPercentage > 100)
       return "Discount must be between 0 and 100.";
+    if (Number(totalPaid) > Number(subTotal))
+      return "Total paid cant be more than Total price";
     return "";
   };
 

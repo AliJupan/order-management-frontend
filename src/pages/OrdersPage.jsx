@@ -139,8 +139,8 @@ export default function OrdersPage() {
             >
               <MenuItem value="">All statuses</MenuItem>
 
-              {Object.entries(OrderStatus).map(([value, { label }]) => (
-                <MenuItem key={value} value={value}>
+              {Object.entries(OrderStatus).map(([key, { value, label }]) => (
+                <MenuItem key={key} value={value}>
                   {label}
                 </MenuItem>
               ))}
@@ -161,8 +161,8 @@ export default function OrdersPage() {
             >
               <MenuItem value="">All payment statuses</MenuItem>
 
-              {Object.entries(PaidStatus).map(([value, { label }]) => (
-                <MenuItem key={value} value={value}>
+              {Object.entries(PaidStatus).map(([key, { value, label }]) => (
+                <MenuItem key={key} value={value}>
                   {label}
                 </MenuItem>
               ))}
@@ -183,8 +183,8 @@ export default function OrdersPage() {
             >
               <MenuItem value="">All order types</MenuItem>
 
-              {Object.entries(OrderType).map(([value, { label }]) => (
-                <MenuItem key={value} value={value}>
+              {Object.entries(OrderType).map(([key, { value, label }]) => (
+                <MenuItem key={key} value={value}>
                   {label}
                 </MenuItem>
               ))}

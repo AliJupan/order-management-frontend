@@ -41,6 +41,7 @@ const ordersApi = {
     axiosClient.put(`/orders/${orderId}/payments`, { amount }),
 
   remove: (id) => axiosClient.delete(`/orders/${id}`),
+  export: (id) => axiosClient.get(`/orders/${id}/export`, { responseType: "blob" }),
 };
 
 export default ordersApi;

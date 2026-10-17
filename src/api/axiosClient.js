@@ -18,7 +18,12 @@ axiosClient.interceptors.request.use((config) => {
 
 // Centralized error handling
 axiosClient.interceptors.response.use(
-    (response) => response.data,
+    (response) => {
+        if (response.config.responseType === "blob") {
+            return response; // keep the full response for blob downloads
+        }
+        return response.data;
+    },
     (error) => {
         console.error("API error:", error.response?.data || error.message);
 

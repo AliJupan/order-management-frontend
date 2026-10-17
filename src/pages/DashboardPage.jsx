@@ -37,37 +37,9 @@ export default function DashboardPage() {
   const stats = summary
     ? [
         {
-          label: "Total Products",
-          value: summary.totalProducts,
-          icon: (
-            <Inventory2OutlinedIcon color="primary" sx={{ fontSize: 42 }} />
-          ),
-        },
-        {
-          label: "Total Orders",
-          value: summary.totalOrders,
-          icon: (
-            <ReceiptLongOutlinedIcon color="primary" sx={{ fontSize: 42 }} />
-          ),
-        },
-        {
           label: "Total Revenue",
           value: `$${summary.totalRevenue.toFixed(2)}`,
           icon: <PaidOutlinedIcon color="success" sx={{ fontSize: 42 }} />,
-        },
-        {
-          label: "Low Stock Products",
-          value: summary.lowStockProducts,
-          icon: (
-            <WarningAmberOutlinedIcon color="warning" sx={{ fontSize: 42 }} />
-          ),
-        },
-        {
-          label: "Pending Orders",
-          value: summary.pendingOrders,
-          icon: (
-            <HourglassEmptyOutlinedIcon color="action" sx={{ fontSize: 42 }} />
-          ),
         },
         {
           label: "Total Spend",
@@ -84,6 +56,34 @@ export default function DashboardPage() {
               color={summary.netProfit >= 0 ? "success" : "error"}
               sx={{ fontSize: 42 }}
             />
+          ),
+        },
+        {
+          label: "Total Products",
+          value: summary.totalProducts,
+          icon: (
+            <Inventory2OutlinedIcon color="primary" sx={{ fontSize: 42 }} />
+          ),
+        },
+        {
+          label: "Low Stock Products",
+          value: summary.lowStockProducts,
+          icon: (
+            <WarningAmberOutlinedIcon color="warning" sx={{ fontSize: 42 }} />
+          ),
+        },
+        {
+          label: "Total Orders",
+          value: summary.totalOrders,
+          icon: (
+            <ReceiptLongOutlinedIcon color="primary" sx={{ fontSize: 42 }} />
+          ),
+        },
+        {
+          label: "Pending Orders",
+          value: summary.pendingOrders,
+          icon: (
+            <HourglassEmptyOutlinedIcon color="action" sx={{ fontSize: 42 }} />
           ),
         },
       ]

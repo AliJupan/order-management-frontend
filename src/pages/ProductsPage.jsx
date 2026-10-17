@@ -10,7 +10,6 @@ import {
   Typography,
 } from "@mui/material";
 
-import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
 
@@ -93,20 +92,6 @@ export default function ProductsPage() {
             Manage your products and inventory.
           </Typography>
         </Box>
-
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={handleAdd}
-          sx={{
-            alignSelf: {
-              xs: "stretch",
-              sm: "center",
-            },
-          }}
-        >
-          Add Product
-        </Button>
       </Stack>
 
       <TextField

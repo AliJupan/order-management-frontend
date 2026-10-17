@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 import productsApi from "../api/productsApi";
 
@@ -12,6 +12,7 @@ export default function useProducts() {
   const [totalCount, setTotalCount] = useState(0);
 
   const [searchTerm, setSearchTerm] = useState("");
+  const lastSearchTerm = useRef("");
 
   const fetchProducts = useCallback(async () => {
     setLoading(true);
@@ -38,14 +39,14 @@ export default function useProducts() {
   }, [fetchProducts]);
 
   const handleSearch = useCallback((value) => {
-    setSearchTerm((currentSearchTerm) => {
-      if (currentSearchTerm === value) {
-        return currentSearchTerm;
-      }
+    if (value === lastSearchTerm.current) {
+      return;
+    }
 
-      setPageNumber(0);
-      return value;
-    });
+    lastSearchTerm.current = value;
+
+    setSearchTerm(value);
+    setPageNumber(0);
   }, []);
 
   const handlePageSizeChange = useCallback((newPageSize) => {

@@ -9,6 +9,8 @@ export default function useOrder(id) {
   const [paymentError, setPaymentError] = useState(null);
   const [statusLoading, setStatusLoading] = useState(false);
   const [statusError, setStatusError] = useState(null);
+  const [exportLoading, setExportLoading] = useState(false);
+  const [exportError, setExportError] = useState(null);
 
   const fetchOrder = useCallback(async () => {
     if (!id) return;
@@ -56,6 +58,28 @@ export default function useOrder(id) {
     }
   };
 
+  const exportOrder = async () => {
+    setExportLoading(true);
+    setExportError(null);
+    try {
+      const response = await ordersApi.export(id);
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `order-${order?.orderNumber ?? id}.xlsx`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      setExportError(err);
+      throw err; // let the button know it failed
+    } finally {
+      setExportLoading(false);
+    }
+  };
+
   return {
     order,
     loading,
@@ -66,5 +90,8 @@ export default function useOrder(id) {
     updateStatus,
     statusLoading,
     statusError,
+    exportOrder,
+    exportLoading,
+    exportError,
   };
 }
