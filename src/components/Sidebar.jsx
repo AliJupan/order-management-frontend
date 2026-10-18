@@ -9,10 +9,13 @@ import {
   Toolbar,
 } from "@mui/material";
 import { Link as RouterLink, useLocation } from "react-router-dom";
+
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import InventoryIcon from "@mui/icons-material/Inventory2";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+
 import { drawerWidth } from "./layoutConfig";
 
 const navItems = [
@@ -20,6 +23,7 @@ const navItems = [
   { text: "Add Order", icon: <AddShoppingCartIcon />, path: "/orders/add" },
   { text: "Orders", icon: <ReceiptLongIcon />, path: "/orders" },
   { text: "Products", icon: <InventoryIcon />, path: "/products" },
+  { text: "Customers", icon: <PeopleAltIcon />, path: "/customer" },
 ];
 
 export default function Sidebar({ mobileOpen, onClose }) {

@@ -3,6 +3,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { CircularProgress, Box } from "@mui/material";
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoutes.jsx";
+import CustomersPage from "./pages/CustomerPage.jsx";
+import CustomerDetailsPage from "./pages/CustomerDetailPage.jsx";
 
 const DashboardPage = lazy(() => import("./pages/DashboardPage"));
 const ProductsPage = lazy(() => import("./pages/ProductsPage"));
@@ -42,6 +44,8 @@ const router = createBrowserRouter([
           { path: "/orders", element: <OrdersPage /> },
           { path: "/orders/:id", element: <OrderDetailPage /> },
           { path: "/orders/add", element: <OrderFormPage /> },
+          { path: "/customer", element: <CustomersPage /> },
+          { path: "/customer/:id", element: <CustomerDetailsPage /> },
         ],
       },
     ],
